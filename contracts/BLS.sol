@@ -91,11 +91,14 @@ library BLS {
         require(success, "elliptic curve pairing failed");
         return result[0] == 1;
     }
+  // The first point in G1 should be equal to the sum of the following points in G1 inserted
+  // Remember the first point in G1 should be negated! -P = (x, q-y)
   function bn128_check_pairing_batch(uint256[] memory input)
     public returns (bool) {
         uint256[1] memory result;
         bool success;
         require(input.length % 6 == 0, "Incorrect input length");
+        uint256 inLen = input.length * 32;
         //uint256 inputBytes = input.length*32;
         assembly {
             // 0x08     id of precompiled bn256Pairing contract     (checking the elliptic curve pairings)
@@ -103,7 +106,7 @@ library BLS {
             // add(input, 0x20) since we have an unbounded array, the first 256 bits refer to its length
             // 384      size of call parameters, i.e. 12*256 bits == 384 bytes
             // 32       size of result (one 32 byte boolean!)
-            success := call(sub(gas, 2000), 0x08, 0, add(input, 0x20), 576, result, 32)
+            success := call(sub(gas, 2000), 0x08, 0, add(input, 0x20), inLen, result, 32)
         }
         require(success, "elliptic curve pairing failed");
         return result[0] == 1;

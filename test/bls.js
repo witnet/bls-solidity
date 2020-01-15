@@ -79,7 +79,8 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
           web3.utils.toBN(test.input.x3_re_g2),
           web3.utils.toBN(test.input.x3_im_g2),
           web3.utils.toBN(test.input.y3_re_g2),
-          web3.utils.toBN(test.input.y3_im_g2)])
+        web3.utils.toBN(test.input.y3_im_g2)
+      ])
 	      assert.equal(pair, test.output.success)
       })
     }

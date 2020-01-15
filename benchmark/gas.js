@@ -69,13 +69,15 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
           web3.utils.toBN(test.input.x2_re_g2),
           web3.utils.toBN(test.input.x2_im_g2),
           web3.utils.toBN(test.input.y2_re_g2),
-          web3.utils.toBN(test.input.y2_im_g2),
+          web3.utils.toBN(test.input.y2_im_g2)
+          /*,
           web3.utils.toBN(test.input.x3_g1),
           web3.utils.toBN(test.input.y3_g1),
           web3.utils.toBN(test.input.x3_re_g2),
           web3.utils.toBN(test.input.x3_im_g2),
           web3.utils.toBN(test.input.y3_re_g2),
-          web3.utils.toBN(test.input.y3_im_g2)])
+        web3.utils.toBN(test.input.y3_im_g2)*/
+      ])
       })
     }
   })
