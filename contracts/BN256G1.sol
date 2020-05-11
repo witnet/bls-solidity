@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.0;
 
 
 /**
@@ -6,7 +6,7 @@ pragma solidity ^0.5.0;
  * @dev Library providing arithmetic operations over elliptic curves.
  * @author Witnet Foundation
  */
-library BLS {
+library BN256G1 {
 
   //https://modex.tech/developers/florinotto/go-ethereum/src/a660685746db17a41cd67b05c614cdb29e49340c/core/vm/contracts_test.go
 
@@ -31,7 +31,7 @@ library BLS {
         //  *) x-coordinate of point Q
         //  *) y-coordinate of point Q
 
-        bool success;
+        bool success;   
         assembly {
             // 0x06     id of precompiled bn256Add contract
             // 0        number of ether to transfer
@@ -86,7 +86,7 @@ library BLS {
             // 0        since we have an array of fixed length, our input starts in 0
             // 384      size of call parameters, i.e. 12*256 bits == 384 bytes
             // 32       size of result (one 32 byte boolean!)
-            success := call(sub(gas, 2000), 0x08, 0, input, 384, result, 32)
+            success := call(sub(gas(), 2000), 0x08, 0, input, 384, result, 32)
         }
         require(success, "elliptic curve pairing failed");
         return result[0] == 1;
@@ -106,7 +106,7 @@ library BLS {
             // add(input, 0x20) since we have an unbounded array, the first 256 bits refer to its length
             // 384      size of call parameters, i.e. 12*256 bits == 384 bytes
             // 32       size of result (one 32 byte boolean!)
-            success := call(sub(gas, 2000), 0x08, 0, add(input, 0x20), inLen, result, 32)
+            success := call(sub(gas(), 2000), 0x08, 0, add(input, 0x20), inLen, result, 32)
         }
         require(success, "elliptic curve pairing failed");
         return result[0] == 1;
