@@ -9,23 +9,31 @@ import "../../contracts/BN256G1.sol";
  * 2. Removal of the `pure` modifier to allow gas consumption analysis
  * @author Witnet Foundation
  */
+
+
 contract BN256G1Helper {
 
-  function _bn128_add(uint256[4] memory input)
+  function _add(uint256[4] memory input)
   public returns (uint256[2] memory result)
   {
-    return BN256G1.bn128_add(input);
+    return BN256G1.add(input);
   }
 
-  function _bn128_multiply(uint256[3] memory input) public returns (uint256[2] memory result) {
-    return BN256G1.bn128_multiply(input);
+  function _multiply(uint256[3] memory input) public returns (uint256[2] memory result) {
+    return BN256G1.multiply(input);
   }
-  function _bn128_check_pairing(uint256[12] memory input)
-    public returns (bool) {
-      return BN256G1.bn128_check_pairing(input);
+
+  function _bn256CheckPairing(uint256[12] memory input) public returns (bool) {
+
+    return BN256G1.bn256CheckPairing(input);
   }
-  function _bn128_check_pairing_batch(uint256[] memory input)
-    public returns (bool) {
-      return BN256G1.bn128_check_pairing_batch(input);
+
+  function _bn256CheckPairingBatch(uint256[] memory input) public returns (bool) {
+
+    return BN256G1.bn256CheckPairingBatch(input);
+  }
+
+  function _hashToTryAndIncrement(bytes memory input) public returns (uint256[2] memory result) {
+    (result[0], result[1]) = BN256G1.hashToTryAndIncrement(input);
   }
 }

@@ -492,5 +492,27 @@
         }
       }
     ]
+  },
+  "hash_to_try": {
+    "valid": [
+      {
+        "description": "Hash to try test 1",
+        "input": {
+          "message": "0x73616d706c65"
+        },
+        "output": {
+          "hash": "0x11e028f08c500889891cc294fe758a60e84495ec1e2d0bce208c9fc67b6486fd"
+        }
+      },
+      {
+        "description": "Hash to try test 2",
+        "input": {
+          "message": "0x68656c6c6f"
+        },
+        "output": {
+          "hash": "0x00b201235f522abbd3863b7496dfa213be0ed1f4c7a22196d8afddec7e64c8ec"
+        }
+      }
+    ]
   }
 }
