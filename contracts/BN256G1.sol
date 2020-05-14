@@ -188,7 +188,9 @@ library BN256G1 {
       // Step 4: arbitraty string to point and check if it is on curve
       uint hPointX = uint256(sha);
       // Avoid hashes that are above the last multiple of _PP, otherwise odds are biased
-      if (hPointX >= LAST_MULTIPLE_OF_PP_LOWER_THAN_2_256) continue;
+      if (hPointX >= LAST_MULTIPLE_OF_PP_LOWER_THAN_2_256) {
+        continue;
+      }
       // Do the modulus to avoid excesive iterations of the loop
       hPointX = hPointX % PP;
       uint hPointY = deriveY(2, hPointX);

@@ -40,7 +40,7 @@
     "lint": "eslint ./test",
     "lint:fix": "eslint ./test --fix",
     "coverage": "SOLIDITY_COVERAGE=true ./node_modules/.bin/solidity-coverage",
-    "gas-analysis": "truffle test ./benchmark/BLSHelper.sol ./benchmark/gas.js"
+    "gas-analysis": "truffle test ./benchmark/BN256G1Helper.sol ./benchmark/gas.js"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
