@@ -37,12 +37,7 @@ library BN256G2 {
     uint256 pt2xx, uint256 pt2xy,
     uint256 pt2yx, uint256 pt2yy
   )
-  public
-  view
-  returns (
-    uint256, uint256,
-    uint256, uint256
-  )
+  public view returns (uint256[4] memory)
   {
     if (pt1xx == 0 && pt1xy == 0 && pt1yx == 0 && pt1yy == 0) {
       if (!(pt2xx == 0 && pt2xy == 0 && pt2yx == 0 && pt2yy == 0)) {
@@ -55,11 +50,11 @@ library BN256G2 {
           ),
           "point not in curve");
         }
-      return (
+      return ([
         pt2xx,
         pt2xy,
         pt2yx,
-        pt2yy);
+        pt2yy]);
     } else if (pt2xx == 0 && pt2xy == 0 && pt2yx == 0 && pt2yy == 0) {
       require(
         _isOnCurve(
@@ -68,11 +63,11 @@ library BN256G2 {
           pt1yx,
           pt1yy),
         "point not in curve");
-      return (
+      return ([
         pt1xx,
         pt1xy,
         pt1yx,
-        pt1yy);
+        pt1yy]);
     }
 
     require(
@@ -131,10 +126,7 @@ library BN256G2 {
     uint256 s,
     uint256 pt1xx, uint256 pt1xy,
     uint256 pt1yx, uint256 pt1yy
-  ) public view returns (
-      uint256, uint256,
-      uint256, uint256
-  )
+  ) public view returns (uint256[4] memory)
   {
     uint256 pt1zx = 1;
     if (pt1xx == 0 && pt1xy == 0 && pt1yx == 0 && pt1yy == 0) {
@@ -396,15 +388,14 @@ library BN256G2 {
     uint256 pt1yx, uint256 pt1yy,
     uint256 pt1zx, uint256 pt1zy
   )
-  internal
-  view
-  returns(
-        uint256 pt2xx, uint256 pt2xy,
-        uint256 pt2yx, uint256 pt2yy
-  )
+  internal view returns (uint256[4] memory)
   {
     uint256 invzx;
     uint256 invzy;
+    uint256 pt2xx;
+    uint256 pt2xy;
+    uint256 pt2yx;
+    uint256 pt2yy;
     (invzx, invzy) = _fq2inv(pt1zx, pt1zy);
     (pt2xx, pt2xy) = _fq2mul(
       pt1xx,
@@ -416,6 +407,11 @@ library BN256G2 {
       pt1yy,
       invzx,
       invzy);
+    return([
+      pt2xx,
+      pt2xy,
+      pt2yx,
+      pt2yy]);
   }
 
 /**
