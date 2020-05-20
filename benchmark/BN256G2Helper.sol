@@ -1,7 +1,6 @@
 pragma solidity ^0.6.0;
 
-import "../../contracts/BN256G2.sol";
-
+import "../contracts/BN256G2.sol";
 
 /**
  * @title Test Helper for the BN256G2 contract
@@ -12,14 +11,13 @@ import "../../contracts/BN256G2.sol";
  */
 contract BN256G2Helper {
 
-  function _bn128_g2_multiply(uint256[5] memory input) public view returns (uint256[4] memory result) {
-    result = BN256G2.ecTwistMul(
+  function _bn128_g2_multiply(uint256[5] memory input) public returns (uint256[4] memory result) {
+    return BN256G2.ecTwistMul(
       input[0], input[1], input[2], input[3], input[4]);
-    return result;
   }
 
-  function _bn128_g2_add(uint256[8] memory input) public view returns (uint256[4] memory result) {
-    result = BN256G2.ecTwistAdd(
+  function _bn128_g2_add(uint256[8] memory input) public returns (uint256[4] memory result) {
+    return BN256G2.ecTwistAdd(
       input[0],
       input[1],
       input[2],
@@ -28,6 +26,5 @@ contract BN256G2Helper {
       input[5],
       input[6],
       input[7]);
-    return result;
   }
 }

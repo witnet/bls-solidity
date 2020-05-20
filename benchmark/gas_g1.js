@@ -5,7 +5,7 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
   // /////////////////////////////////////////// //
   // Check auxiliary operations for given curves //
   // /////////////////////////////////////////// //
-  describe("BLS operations", () => {
+  describe("BN256G1 operations", () => {
     const curveData = require("./bn256.json")
 
     let library
@@ -16,7 +16,7 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
       helper = await BN256G1Helper.new()
     })
 
-    // toAffine
+    // addition
     for (const [index, test] of curveData.addition.valid.entries()) {
       it(`should add two points (${index + 1})`, async () => {
         await helper._add([
@@ -76,6 +76,22 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
           web3.utils.toBN(test.input.y3_re_g2),
           web3.utils.toBN(test.input.y3_im_g2),
         ])
+      })
+    }
+    // isOnCurveSub
+    for (const [index, test] of curveData.is_on_curve.valid.entries()) {
+      it(`should check wether is on curve (${index + 1})`, async () => {
+        await helper._isOnCurveSubsidized([
+          web3.utils.toBN(test.input.x),
+          web3.utils.toBN(test.input.y)])
+      })
+    }
+    // isOnCurve
+    for (const [index, test] of curveData.is_on_curve.valid.entries()) {
+      it(`should check wether is on curve (${index + 1})`, async () => {
+        await helper._isOnCurve([
+          web3.utils.toBN(test.input.x),
+          web3.utils.toBN(test.input.y)])
       })
     }
   })

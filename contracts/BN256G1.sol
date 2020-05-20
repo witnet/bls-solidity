@@ -8,6 +8,7 @@ import "elliptic-curve-solidity/contracts/EllipticCurve.sol";
  * @dev Library providing arithmetic operations over G1 in bn256.
  * Provides additional methods like pairing and pairing_batch
  * Heavily influenced by https://github.com/PhilippSchindler/ethdkg
+ * Calls to assembly are public and not external because assembly cannot be applied on calldata
  * @author Witnet Foundation
  */
 
@@ -94,6 +95,7 @@ library BN256G1 {
       // 64       size of call return value, i.e. 64 bytes / 512 bit for a BN256 curve point
       valid := call(not(0), 0x06, 0, input, 128, input, 64)
     }
+    return valid;
   }
 
   /// @dev Checks if P is on G1 using the EllipticCurve library.

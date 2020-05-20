@@ -19,6 +19,11 @@ library BN256G2 {
   uint internal constant PTZX = 4;
   uint internal constant PTZY = 5;
 
+  uint256 public constant G2_X_RE  = 0x1800DEEF121F1E76426A00665E5C4479674322D4F75EDADD46DEBD5CD992F6ED;
+  uint256 public constant G2_X_IM  = 0x198E9393920D483A7260BFB731FB5D25F1AA493335A9E71297E485B7AEF312C2;
+  uint256 public constant G2_Y_RE  = 0x12C85EA5DB8C6DEB4AAB71808DCB408FE3D1E7690C43D37B4CE6CC0166FA7DAA;
+  uint256 public constant G2_Y_IM  = 0x090689D0585FF075EC9E99AD690C3395BC4B313370B38EF355ACDADCD122975B;
+
   /**
   * @notice Add two twist points
   * @param pt1xx Coefficient 1 of x on point 1
@@ -37,7 +42,7 @@ library BN256G2 {
     uint256 pt2xx, uint256 pt2xy,
     uint256 pt2yx, uint256 pt2yy
   )
-  public view returns (uint256[4] memory)
+  external view returns (uint256[4] memory)
   {
     if (pt1xx == 0 && pt1xy == 0 && pt1yx == 0 && pt1yy == 0) {
       if (!(pt2xx == 0 && pt2xy == 0 && pt2yx == 0 && pt2yy == 0)) {
@@ -126,7 +131,7 @@ library BN256G2 {
     uint256 s,
     uint256 pt1xx, uint256 pt1xy,
     uint256 pt1yx, uint256 pt1yy
-  ) public view returns (uint256[4] memory)
+  ) external view returns (uint256[4] memory)
   {
     uint256 pt1zx = 1;
     if (pt1xx == 0 && pt1xy == 0 && pt1yx == 0 && pt1yy == 0) {
@@ -160,7 +165,7 @@ library BN256G2 {
   * @notice Get the field modulus
   * @return The field modulus
   */
-  function getFieldModulus() public pure returns (uint256) {
+  function getFieldModulus() external pure returns (uint256) {
     return FIELD_MODULUS;
   }
 
