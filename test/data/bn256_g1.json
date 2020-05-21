@@ -546,5 +546,45 @@
         "output": true
       }
     ]
+  },
+  "from_compressed": {
+    "valid": [
+      {
+        "input": {
+          "point": "0x032243525c5efd4b9c3d3c45ac0ca3fe4dd85e830a4ce6b65fa1eeaee202839703"
+        },
+        "output": {
+          "x": "0x2243525c5efd4b9c3d3c45ac0ca3fe4dd85e830a4ce6b65fa1eeaee202839703",
+          "y": "0x301d1d33be6da8e509df21cc35964723180eed7532537db9ae5e7d48f195c915"
+        }
+      },
+      {
+        "input": {
+          "point": "0x02030644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd3"
+        },
+        "output": {
+          "x": "0x030644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd3",
+          "y": "0x15ed738c0e0a7c92e7845f96b2ae9c0a68a6a449e3538fc7ff3ebf7a5a18a2c4"
+        }
+      },
+      {
+        "input": {
+          "point": "0x022bd3e6d0f3b142924f5ca7b49ce5b9d54c4703d7ae5648e61d02268b1a0a9fb7"
+        },
+        "output": {
+          "x": "0x2bd3e6d0f3b142924f5ca7b49ce5b9d54c4703d7ae5648e61d02268b1a0a9fb7",
+          "y": "0x21611ce0a6af85915e2f1d70300909ce2e49dfad4a4619c8390cae66cefdb204"
+        }
+      },
+      {
+        "input": {
+          "point": "0x0315bf2bb17880144b5d1cd2b1f46eff9d617bffd1ca57c37fb5a49bd84e53cf66"
+        },
+        "output": {
+          "x": "0x15bf2bb17880144b5d1cd2b1f46eff9d617bffd1ca57c37fb5a49bd84e53cf66",
+          "y": "0x049c797f9ce0d17083deb32b5e36f2ea2a212ee036598dd7624c168993d1355f"
+        }
+      }
+    ]
   }
 }

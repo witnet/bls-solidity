@@ -39,7 +39,7 @@ library BN256G1 {
   //  *) x-coordinate of point Q
   //  *) y-coordinate of point Q
   /// @return An array with x and y coordinates of P+Q.
-  function add(uint256[4] memory input) public returns (uint256[2] memory) {
+  function add(uint256[4] memory input) internal returns (uint256[2] memory) {
     bool success;
     uint256[2] memory result;
     assembly {
@@ -60,7 +60,7 @@ library BN256G1 {
   //  *) y-coordinate of point P
   //  *) scalar k.
   /// @return An array with x and y coordinates of P*k.
-  function multiply(uint256[3] memory input) public returns (uint256[2] memory) {
+  function multiply(uint256[3] memory input) internal returns (uint256[2] memory) {
     bool success;
     uint256[2] memory result;
     assembly {
@@ -79,7 +79,7 @@ library BN256G1 {
   //  *) x-coordinate of point P
   //  *) y-coordinate of point P
   /// @return true if P is in G1.
-  function isOnCurveSubsidized(uint[2] memory point) public returns(bool) {
+  function isOnCurveSubsidized(uint[2] memory point) internal returns(bool) {
     bool valid;
     // checks if the given point is a valid point from the first elliptic curve group
     uint256[4] memory input = [
@@ -103,7 +103,7 @@ library BN256G1 {
   //  *) x-coordinate of point P
   //  *) y-coordinate of point P
   /// @return true if P is in G1.
-  function isOnCurve(uint[2] memory point) public returns(bool) {
+  function isOnCurve(uint[2] memory point) internal returns(bool) {
     // checks if the given point is a valid point from the first elliptic curve group
     // uses the EllipticCurve library
     return EllipticCurve.isOnCurve(
@@ -129,7 +129,7 @@ library BN256G1 {
   //  *) y real coordinate of point S
   //  *) y imaginary coordinate of point S
   /// @return true if e(P, Q) = e (R,S).
-  function bn256CheckPairing(uint256[12] memory input) public returns (bool) {
+  function bn256CheckPairing(uint256[12] memory input) internal returns (bool) {
     uint256[1] memory result;
     bool success;
     assembly {
@@ -160,7 +160,7 @@ library BN256G1 {
   //  *) y imaginary coordinate of point S
   //  *) and so forth with additional pairing checks
   /// @return true if e(input[0,1], input[2,3,4,5]) = e(input[6,7], input[8,9,10,11])*e(input[12,13], input[14,15,16,17])...
-  function bn256CheckPairingBatch(uint256[] memory input) public returns (bool) {
+  function bn256CheckPairingBatch(uint256[] memory input) internal returns (bool) {
     uint256[1] memory result;
     bool success;
     require(input.length % 6 == 0, "Incorrect input length");
@@ -175,6 +175,25 @@ library BN256G1 {
     }
     require(success, "elliptic curve pairing failed");
     return result[0] == 1;
+  }
+
+  /// @dev Function to transform compressed bytes into a x and a y coordinate in the curve.
+  /// @param _point The point bytes
+  /// @return The coordinates `x` and `y` in an array
+  function fromCompressed(bytes memory _point) internal pure returns (uint256[2] memory) {
+    require(_point.length == 33, "invalid encoding");
+    uint8 sign;
+    uint256 x;
+    assembly {
+      sign := mload(add(_point, 1))
+	    x := mload(add(_point, 33))
+    }
+
+    return [
+      x, deriveY(
+        sign,
+        x)
+      ];
   }
 
   /// @dev Function to convert a `Hash(msg|DATA)` to a point in the curve as defined in [VRF-draft-04](https://tools.ietf.org/pdf/draft-irtf-cfrg-vrf-04).

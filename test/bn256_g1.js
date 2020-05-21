@@ -122,5 +122,16 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
         assert(valid)
       })
     }
+
+     // fromCompressed
+     for (const [index, test] of curveData.from_compressed.valid.entries()) {
+      it(`should check from compressed (${index + 1})`, async () => {
+        const uncompressed = await bn256g1helper._fromCompressed.call(
+          test.input.point);
+        
+        assert.equal(uncompressed[0].toString(), web3.utils.toBN(test.output.x).toString())
+        assert.equal(uncompressed[1].toString(), web3.utils.toBN(test.output.y).toString())
+      })
+    }
   })
 })

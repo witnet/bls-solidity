@@ -44,4 +44,8 @@ contract BN256G1Helper {
   function _isOnCurve(uint256[2] memory input) public returns (bool) {
     return BN256G1.isOnCurve(input);
   }
+
+  function _fromCompressed(bytes memory point) public returns (uint256[2] memory) {
+    return BN256G1.fromCompressed(point);
+  }
 }
