@@ -1,0 +1,11 @@
+node_modules/
+build/
+coverage/
+coverage.json
+
+.env
+.idea
+.vscode
+
+yarn.lock
+package-lock.json
