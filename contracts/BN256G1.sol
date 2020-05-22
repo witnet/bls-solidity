@@ -14,7 +14,6 @@ import "elliptic-curve-solidity/contracts/EllipticCurve.sol";
  * @author Witnet Foundation
  */
 
-
 library BN256G1 {
 
   // Generator coordinate `x` of the EC curve
@@ -36,19 +35,19 @@ library BN256G1 {
 
   /// @dev  computes P + Q
   /// @param input: 4 values of 256 bit each
-  //  *) x-coordinate of point P
-  //  *) y-coordinate of point P
-  //  *) x-coordinate of point Q
-  //  *) y-coordinate of point Q
+  ///  *) x-coordinate of point P
+  ///  *) y-coordinate of point P
+  ///  *) x-coordinate of point Q
+  ///  *) y-coordinate of point Q
   /// @return An array with x and y coordinates of P+Q.
   function add(uint256[4] memory input) internal returns (uint256[2] memory) {
     bool success;
     uint256[2] memory result;
     assembly {
-    // 0x06     id of precompiled bn256Add contract
-    // 0        number of ether to transfer
-    // 128      size of call parameters, i.e. 128 bytes total
-    // 64       size of call return value, i.e. 64 bytes / 512 bit for a BN256 curve point
+      // 0x06     id of precompiled bn256Add contract
+      // 0        number of ether to transfer
+      // 128      size of call parameters, i.e. 128 bytes total
+      // 64       size of call return value, i.e. 64 bytes / 512 bit for a BN256 curve point
       success := call(not(0), 0x06, 0, input, 128, result, 64)
     }
     require(success, "bn256 addition failed");
@@ -58,9 +57,9 @@ library BN256G1 {
 
   /// @dev  computes computes P*k.
   /// @param input: 3 values of 256 bit each:
-  //  *) x-coordinate of point P
-  //  *) y-coordinate of point P
-  //  *) scalar k.
+  ///  *) x-coordinate of point P
+  ///  *) y-coordinate of point P
+  ///  *) scalar k.
   /// @return An array with x and y coordinates of P*k.
   function multiply(uint256[3] memory input) internal returns (uint256[2] memory) {
     bool success;
@@ -77,11 +76,11 @@ library BN256G1 {
   }
 
   /// @dev Checks if P is on G1 using the subsidized EVM call.
-  /// @param input: 2 values of 256 bit each:
-  //  *) x-coordinate of point P
-  //  *) y-coordinate of point P
+  /// @param point: 2 values of 256 bit each:
+  ///  *) x-coordinate of point P
+  ///  *) y-coordinate of point P
   /// @return true if P is in G1.
-  function isOnCurveSubsidized(uint[2] memory point) internal returns(bool) {
+  function isOnCurveSubsidized(uint[2] memory point) internal returns (bool) {
     bool valid;
     // checks if the given point is a valid point from the first elliptic curve group
     uint256[4] memory input = [
@@ -101,11 +100,11 @@ library BN256G1 {
   }
 
   /// @dev Checks if P is on G1 using the EllipticCurve library.
-  /// @param input: 2 values of 256 bit each:
-  //  *) x-coordinate of point P
-  //  *) y-coordinate of point P
+  /// @param point: 2 values of 256 bit each:
+  ///  *) x-coordinate of point P
+  ///  *) y-coordinate of point P
   /// @return true if P is in G1.
-  function isOnCurve(uint[2] memory point) internal returns(bool) {
+  function isOnCurve(uint[2] memory point) internal returns (bool) {
     // checks if the given point is a valid point from the first elliptic curve group
     // uses the EllipticCurve library
     return EllipticCurve.isOnCurve(
@@ -118,18 +117,18 @@ library BN256G1 {
 
   /// @dev Checks if e(P, Q) = e (R,S).
   /// @param input: 12 values of 256 bit each:
-  //  *) x-coordinate of point P
-  //  *) y-coordinate of point P
-  //  *) x real coordinate of point Q
-  //  *) x imaginary coordinate of point Q
-  //  *) y real coordinate of point Q
-  //  *) y imaginary coordinate of point Q
-  //  *) x-coordinate of point R
-  //  *) y-coordinate of point R
-  //  *) x real coordinate of point S
-  //  *) x imaginary coordinate of point S
-  //  *) y real coordinate of point S
-  //  *) y imaginary coordinate of point S
+  ///  *) x-coordinate of point P
+  ///  *) y-coordinate of point P
+  ///  *) x real coordinate of point Q
+  ///  *) x imaginary coordinate of point Q
+  ///  *) y real coordinate of point Q
+  ///  *) y imaginary coordinate of point Q
+  ///  *) x-coordinate of point R
+  ///  *) y-coordinate of point R
+  ///  *) x real coordinate of point S
+  ///  *) x imaginary coordinate of point S
+  ///  *) y real coordinate of point S
+  ///  *) y imaginary coordinate of point S
   /// @return true if e(P, Q) = e (R,S).
   function bn256CheckPairing(uint256[12] memory input) internal returns (bool) {
     uint256[1] memory result;
@@ -148,19 +147,19 @@ library BN256G1 {
 
   /// @dev Checks if e(P, Q) = e (R,S)*e(T,U)...
   /// @param input: A modulo 6 length array of values of 256 bit each:
-  //  *) x-coordinate of point P
-  //  *) y-coordinate of point P
-  //  *) x real coordinate of point Q
-  //  *) x imaginary coordinate of point Q
-  //  *) y real coordinate of point Q
-  //  *) y imaginary coordinate of point Q
-  //  *) x-coordinate of point R
-  //  *) y-coordinate of point R
-  //  *) x real coordinate of point S
-  //  *) x imaginary coordinate of point S
-  //  *) y real coordinate of point S
-  //  *) y imaginary coordinate of point S
-  //  *) and so forth with additional pairing checks
+  ///  *) x-coordinate of point P
+  ///  *) y-coordinate of point P
+  ///  *) x real coordinate of point Q
+  ///  *) x imaginary coordinate of point Q
+  ///  *) y real coordinate of point Q
+  ///  *) y imaginary coordinate of point Q
+  ///  *) x-coordinate of point R
+  ///  *) y-coordinate of point R
+  ///  *) x real coordinate of point S
+  ///  *) x imaginary coordinate of point S
+  ///  *) y real coordinate of point S
+  ///  *) y imaginary coordinate of point S
+  ///  *) and so forth with additional pairing checks
   /// @return true if e(input[0,1], input[2,3,4,5]) = e(input[6,7], input[8,9,10,11])*e(input[12,13], input[14,15,16,17])...
   function bn256CheckPairingBatch(uint256[] memory input) internal returns (bool) {
     uint256[1] memory result;

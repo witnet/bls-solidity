@@ -1,4 +1,3 @@
-const BN256G1 = artifacts.require("BN256G1")
 const BN256G1Helper = artifacts.require("BN256G1Helper")
 
 contract("EcGasHelper - Gas consumption analysis", accounts => {
@@ -14,11 +13,8 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
   describe("BN256G1 operations", () => {
     const curveData = require("./data/bn256_g1.json")
 
-    let library
     let bn256g1helper
     before(async () => {
-      library = await BN256G1.deployed()
-      await BN256G1Helper.link(BN256G1, library.address)
       bn256g1helper = await BN256G1Helper.new()
     })
 

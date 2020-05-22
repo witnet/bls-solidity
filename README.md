@@ -1,14 +1,12 @@
 # bls-solidity [![TravisCI](https://travis-ci.com/witnet/bls-solidity.svg?branch=master)](https://travis-ci.com/witnet/bls-solidity)
 
-`bls-solidity` is an open source fast and effective implementation of BN256 operations written in Solidity. More precisely, this library implements all the necessary curve arithmetic to perform BLS signatures. Currently only the Elliptic Curve (EC) `bn256` is supported.
+`bls-solidity` is an open source fast and effective implementation of the 256- bit Barreto-Naehrig (BN256) curve operations written in Solidity. More precisely, this library implements all the necessary curve arithmetic to perform BLS signatures. Currently only the Elliptic Curve (EC) `bn256` is supported, as this is the only curve for which certain operations are subsidized by the EVM in the form of precompiled functions. However, adding support to new curves should be straight forward.
 
 _DISCLAIMER: This is experimental software. **Use it at your own risk**!_
 
-The solidity library has been designed aiming at decreasing gas consumption and its complexity due to EC operations.
+The solidity library has been designed aiming at decreasing gas consumption and its complexity due to EC operations. For that reasons, the `BN256G1` library makes use of the precompiled functions made available by the EVM. The operations in G2 are not subsidized, and therefore implementations for the most basic operations are available. 
 
-Both arithmetic for BN256 G1 and G2 groups is supported. The exported functions are:
-
-In G1:
+Exported functions in field G1:
 
 - **add**:
   - _Description_: adds two points in Jacobian coordinates in G1
@@ -52,7 +50,7 @@ In G1:
   - _Output_:
     - true if e(P, Q) is equal to e(R, S) * e(T, U) * ....
 
-In G2:
+Exported functions in field G2:
 
 - **ecTwistAdd**:
   - _Description_: adds two points in Jacobian coordinates in G2
@@ -75,7 +73,7 @@ In G2:
 Similarly to the [`BN256G1Helper.sol`](https://github.com/witnet/bls-solidity/blob/master/test/BN256G1Helper.sol) from the [`test`][test-folder] project folder, a contract may use the library by instantiation as follows:
 
 ```solidity
-pragma solidity 0.6.4;
+pragma solidity 0.6.8;
 
 import "bls-solidity/contracts/BN256G1.sol";
 
@@ -105,13 +103,13 @@ Gas consumption and USD price estimation with a gas price of 20 Gwei, derived fr
 ·················|···························|·············|·············|·············|··············|··············
 |  Contract      ·  Method                   ·  Min        ·  Max        ·  Avg        ·  # calls     ·  usd (avg)  │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G2Helper  · _bn128_g2_add  ·             -  ·          -  ·           56879  ·        8  ·        0.2      │
+|  BN256G2Helper · _bn128_g2_add             ·        -    ·        -    ·  56879      ·     8         ·  0.2       │ 
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G2Helper  · _bn128_g2_multiply          2947053  ·     3142700  ·   3060006  ·        15  ·      10.31      │
+|  BN256G2Helper · _bn128_g2_multiply        ·  2947053    ·  3142700    ·  3060006    ·    15        ·  10.31      │
 ·················|···························|·············|·············|·············|··············|··············
 |  Deployments                               ·                                         ·  % of limit  ·             │
 ·············································|·············|·············|·············|··············|··············
-|  BN256G2Helper                              ·          -  ·          -  · 214244  ·        3.2 %  ·     0.9       │
+|  BN256G2Helper                             ·        -    ·        -    ·  214244     ·     3.2 %    ·   0.9       │
 ·--------------------------------------------|-------------|-------------|-------------|--------------|-------------·
 ```
 
@@ -121,21 +119,21 @@ Gas consumption and USD price estimation with a gas price of 20 Gwei, derived fr
 ·················|···························|·············|·············|·············|··············|··············
 |  Contract      ·  Method                   ·  Min        ·  Max        ·  Avg        ·  # calls     ·  usd (avg)  │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G2Helper  ·  _add  ·                     26055  ·      27591  ·      26835  ·        12  ·        0.1       │
+|  BN256G1Helper ·  _add                     ·   26055     ·   27591     ·   26835     ·     12       ·   0.1       │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G1Helper  ·  _bn256CheckPairing         143777  ·     144367  ·     144367  ·        10  ·        0.6       │
+|  BN256G1Helper ·  _bn256CheckPairing       ·  143777     ·  144367     ·  144367     ·     10       ·   0.6       │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G1Helper  ·  _bn256CheckPairingBatch    182830  ·     182866  ·     182854  ·         5  ·        0.8       
+|  BN256G1Helper ·  _bn256CheckPairingBatch  ·  182830     ·  182866     ·  182854     ·      5       ·   0.8       │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G1Helper  ·  _isOnCurve               ·  24119  ·      25104  ·      24885  ·         9  ·        0.1       │
+|  BN256G1Helper ·  _isOnCurve               ·   24119     ·   25104     ·   24885     ·      9       ·   0.1       │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G1Helper  ·  _isOnCurveSubsidized        25053  ·      25821  ·      25667  ·        10  ·        0.1       │
+|  BN256G1Helper ·  _isOnCurveSubsidized     ·   25053     ·   25821     ·   25667     ·     10       ·   0.1       │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G1Helper  ·  _multiply               ·   32471  ·      32855  ·      32644  ·        36  ·        0.1       │
+|  BN256G1Helper ·  _multiply                ·   32471     ·   32855     ·   32644     ·     36       ·   0.1       │
 ·················|···························|·············|·············|·············|··············|··············
 |  Deployments                               ·                                         ·  % of limit  ·             │
 ·············································|·············|·············|·············|··············|··············
-|  BN256G1Helper                              ·          -  ·          -  · 622742  ·        9.3 %  ·     2.7       │
+|  BN256G1Helper                             ·       -     ·       -     ·  622742     ·      9.3 %   ·   2.7       │
 ·--------------------------------------------|-------------|-------------|-------------|--------------|-------------·
 ```
 

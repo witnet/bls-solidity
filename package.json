@@ -16,7 +16,9 @@
     "bn256",
     "barreto-naehrig",
     "altbn128",
-    "alt_bn128"
+    "alt_bn128",
+    "bls",
+    "pairing"
   ],
   "author": "Witnet Foundation <info@witnet.foundation>",
   "license": "MIT",
@@ -33,8 +35,8 @@
     "console": "truffle console",
     "postinstall": "npm run compile-contracts",
     "compile-contracts": "truffle compile --all",
-    "fmt": "solhint --max-warnings 0 \"contracts/**/*.sol\" && eslint ./test && solhint \"test/**/*.sol\"",
-    "fmt!": "solhint --max-warnings 0 \"contracts/**/*.sol\" --fix && eslint ./test --fix && solhint \"test/**/*.sol\" --fix",
+    "fmt": "solhint --max-warnings 0 \"contracts/**/*.sol\" && eslint ./test && solhint \"test/**/*.sol\" && eslint ./benchmark && solhint \"benchmark/**/*.sol\"",
+    "fmt!": "solhint --max-warnings 0 \"contracts/**/*.sol\" --fix && eslint ./test --fix && solhint \"test/**/*.sol\" --fix && eslint ./benchmark && solhint \"benchmark/**/*.sol\" --fix",
     "coverage": "SOLIDITY_COVERAGE=true ./node_modules/.bin/solidity-coverage",
     "gas-analysis-g1": "truffle test ./benchmark/BN256G1Helper.sol ./benchmark/gas_g1.js",
     "gas-analysis-g2": "truffle test ./benchmark/BN256G2Helper.sol ./benchmark/gas_g2.js",

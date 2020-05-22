@@ -1,4 +1,3 @@
-const BN256G1 = artifacts.require("BN256G1")
 const BN256G1Helper = artifacts.require("BN256G1Helper")
 
 contract("EcGasHelper - Gas consumption analysis", accounts => {
@@ -8,15 +7,12 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
   describe("BN256G1 operations", () => {
     const curveData = require("./bn256.json")
 
-    let library
     let helper
     before(async () => {
-      library = await BN256G1.deployed()
-      await BN256G1Helper.link(BN256G1, library.address)
       helper = await BN256G1Helper.new()
     })
 
-    // addition
+    // Addition
     for (const [index, test] of curveData.addition.valid.entries()) {
       it(`should add two points (${index + 1})`, async () => {
         await helper._add([
@@ -27,6 +23,7 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
       })
     }
 
+    // Multiplication
     for (const [index, test] of curveData.multiplication.valid.entries()) {
       it(`should mul a point with a scalar (${index + 1})`, async () => {
         await helper._multiply([
@@ -36,6 +33,7 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
       })
     }
 
+    // Pairing
     for (const [index, test] of curveData.pairing.valid.entries()) {
       it(`should check pair (${index + 1})`, async () => {
         await helper._bn256CheckPairing([
@@ -53,7 +51,8 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
           web3.utils.toBN(test.input.y2_im_g2)])
       })
     }
-    // Batch Pair
+
+    // Batch pair
     for (const [index, test] of curveData.pairing_batch.valid.entries()) {
       it(`should check batch pair (${index + 1})`, async () => {
         await helper._bn256CheckPairingBatch([
@@ -78,6 +77,7 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
         ])
       })
     }
+
     // isOnCurveSub
     for (const [index, test] of curveData.is_on_curve.valid.entries()) {
       it(`should check wether is on curve (${index + 1})`, async () => {
@@ -86,6 +86,7 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
           web3.utils.toBN(test.input.y)])
       })
     }
+
     // isOnCurve
     for (const [index, test] of curveData.is_on_curve.valid.entries()) {
       it(`should check wether is on curve (${index + 1})`, async () => {
