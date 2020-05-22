@@ -1,7 +1,7 @@
 {
-  "name": "bs-solidity",
-  "version": "0.2.1",
-  "description": "Arithmetic for bn256 curves written in solidity",
+  "name": "bls-solidity",
+  "version": "0.1.0",
+  "description": "Open-source fast and effective implementation of BN256 operations written in Solidity",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/witnet/bls-solidity.git"
@@ -13,20 +13,20 @@
     "elliptic",
     "ecc",
     "curve",
-    "ecdsa",
-    "secp256k1",
-    "secp256r1",
-    "secp192r1"
+    "bn256",
+    "barreto-naehrig",
+    "altbn128",
+    "alt_bn128"
   ],
   "author": "Witnet Foundation <info@witnet.foundation>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/witnet/elliptic-curve-solidity/issues"
+    "url": "https://github.com/witnet/bls-solidity/issues"
   },
   "dependencies": {
     "elliptic-curve-solidity": "0.2.2"
   },
-  "homepage": "https://github.com/witnet/elliptic-curve-solidity#readme",
+  "homepage": "https://github.com/witnet/bls-solidityy#readme",
   "scripts": {
     "test": "truffle test",
     "test:local": "truffle test --network local",
