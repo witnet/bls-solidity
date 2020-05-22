@@ -35,6 +35,19 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
       })
     }
 
+    // Invalid add
+    for (const [index, test] of curveData.addition.invalid.entries()) {
+      it(`invalid: should add two points (${index + 1})`, async () => {
+        const add = await bn256g1helper._add.call([
+          web3.utils.toBN(test.input.x1),
+          web3.utils.toBN(test.input.y1),
+          web3.utils.toBN(test.input.x2),
+          web3.utils.toBN(test.input.y2)])
+        assert.notEqual(add[0].toString(), web3.utils.toBN(test.output.x).toString())
+        assert.notEqual(add[1].toString(), web3.utils.toBN(test.output.y).toString())
+      })
+    }
+
     // Mul
     for (const [index, test] of curveData.multiplication.valid.entries()) {
       it(`should mul a point with a scalar (${index + 1})`, async () => {
@@ -46,9 +59,42 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
         assert.equal(mul[1].toString(), web3.utils.toBN(test.output.y).toString())
       })
     }
+
+    // Invalid mul
+    for (const [index, test] of curveData.multiplication.invalid.entries()) {
+      it(`invalid: should mul a point with a scalar (${index + 1})`, async () => {
+        const mul = await bn256g1helper._multiply.call([
+          web3.utils.toBN(test.input.x),
+          web3.utils.toBN(test.input.y),
+          web3.utils.toBN(test.input.k)])
+        assert.notEqual(mul[0].toString(), web3.utils.toBN(test.output.x).toString())
+        assert.notEqual(mul[1].toString(), web3.utils.toBN(test.output.y).toString())
+      })
+    }
+
     // Pair
     for (const [index, test] of curveData.pairing.valid.entries()) {
       it(`should check pair (${index + 1})`, async () => {
+        const pair = await bn256g1helper._bn256CheckPairing.call([
+          web3.utils.toBN(test.input.x1_g1),
+          web3.utils.toBN(test.input.y1_g1),
+          web3.utils.toBN(test.input.x1_re_g2),
+          web3.utils.toBN(test.input.x1_im_g2),
+          web3.utils.toBN(test.input.y1_re_g2),
+          web3.utils.toBN(test.input.y1_im_g2),
+          web3.utils.toBN(test.input.x2_g1),
+          web3.utils.toBN(test.input.y2_g1),
+          web3.utils.toBN(test.input.x2_re_g2),
+          web3.utils.toBN(test.input.x2_im_g2),
+          web3.utils.toBN(test.input.y2_re_g2),
+          web3.utils.toBN(test.input.y2_im_g2)])
+        assert.equal(pair, test.output.success)
+      })
+    }
+
+    // Invalid pair
+    for (const [index, test] of curveData.pairing.invalid.entries()) {
+      it(`invalid: should check pair (${index + 1})`, async () => {
         const pair = await bn256g1helper._bn256CheckPairing.call([
           web3.utils.toBN(test.input.x1_g1),
           web3.utils.toBN(test.input.y1_g1),
@@ -109,7 +155,7 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
         const valid = await bn256g1helper._isOnCurveSubsidized.call([
           web3.utils.toBN(test.input.x),
           web3.utils.toBN(test.input.y)])
-        assert(valid)
+        assert.equal(valid, test.output)
       })
     }
 
@@ -119,16 +165,26 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
         const valid = await bn256g1helper._isOnCurve.call([
           web3.utils.toBN(test.input.x),
           web3.utils.toBN(test.input.y)])
-        assert(valid)
+        assert.equal(valid, test.output)
       })
     }
 
-     // fromCompressed
-     for (const [index, test] of curveData.from_compressed.valid.entries()) {
+    // Invalid isOnCurve
+    for (const [index, test] of curveData.is_on_curve.invalid.entries()) {
+      it(`invalid: should check wether is on curve (${index + 1})`, async () => {
+        const valid = await bn256g1helper._isOnCurve.call([
+          web3.utils.toBN(test.input.x),
+          web3.utils.toBN(test.input.y)])
+        assert.equal(valid, test.output)
+      })
+    }
+
+    // fromCompressed
+    for (const [index, test] of curveData.from_compressed.valid.entries()) {
       it(`should check from compressed (${index + 1})`, async () => {
         const uncompressed = await bn256g1helper._fromCompressed.call(
-          test.input.point);
-        
+          test.input.point)
+
         assert.equal(uncompressed[0].toString(), web3.utils.toBN(test.output.x).toString())
         assert.equal(uncompressed[1].toString(), web3.utils.toBN(test.output.y).toString())
       })

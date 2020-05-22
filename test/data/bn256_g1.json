@@ -79,6 +79,34 @@
           "y": "0x049c797f9ce0d17083deb32b5e36f2ea2a212ee036598dd7624c168993d1355f"
         }
       }
+    ],
+    "invalid": [
+      {
+        "description": "Invalid addition test 1",
+        "input": {
+          "x1": "0x2243525c5efd4b9c3d3c45ac0ca3fe4dd85e830a4ce6b65fa1eeaee202839703",
+          "y1": "0x301d1d33be6da8e509df21cc35964723180eed7532537db9ae5e7d48f195c915",
+          "x2": "0x18b18acfb4c2c30276db5411368e7185b311dd124691610c5d3b74034e093dc9",
+          "y2": "0x063c909c4720840cb5134cb9f59fa749755796819658d32efc0d288198f37266"
+        },
+        "output": {
+          "x": "0x2243525c5efd4b9c3d3c45ac0ca3fe4dd85e830a4ce6b65fa1eeaee202839703",
+          "y": "0x301d1d33be6da8e509df21cc35964723180eed7532537db9ae5e7d48f195c915"
+        }
+      },
+      {
+        "description": "Invalid addition test 2",
+        "input": {
+          "x1": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "y1": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "x2": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "y2": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "output": {
+          "x": "0x0000000000000000000000000000000000000000000000000000000000000001",
+          "y": "0x0000000000000000000000000000000000000000000000000000000000000002"
+        }
+      }
     ]
   },
   "multiplication": {
@@ -299,6 +327,32 @@
           "y": "0x2b693031dcf64742424f6361a1c7df34beb99f4db9b609a00c447fabdb190404"
         }
       }
+    ],
+    "invalid": [
+      {
+        "description": "Invalid mul test 1",
+        "input": {
+          "x": "0x2bd3e6d0f3b142924f5ca7b49ce5b9d54c4703d7ae5648e61d02268b1a0a9fb7",
+          "y": "0x21611ce0a6af85915e2f1d70300909ce2e49dfad4a4619c8390cae66cefdb204",
+          "k": "0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd46"
+        },
+        "output": {
+          "x": "0x070a8d6a982153cae4be29d434e8faef8a47b274a053f5a4ee2a6c9c13c31e5c",
+          "y": "0x031b8ce914eba3a9ffb989f9cdd5b0f01943074bf4f0f315690ec3cec6981afc"
+        }
+      },
+      {
+        "description": "Invalid mul test 2",
+        "input": {
+          "x": "0x070a8d6a982153cae4be29d434e8faef8a47b274a053f5a4ee2a6c9c13c31e5c",
+          "y": "0x031b8ce914eba3a9ffb989f9cdd5b0f01943074bf4f0f315690ec3cec6981afc",
+          "k": "0x183227397098d014dc2822db40c0ac2ecbc0b548b438e5469e10460b6c3e7ea3"
+        },
+        "output": {
+          "x": "0x025a6f4181d2b4ea8b724290ffb40156eb0adb514c688556eb79cdea0752c2bb",
+          "y": "0x2eff3f31dea215f1eb86023a133a996eb6300b44da664d64251d05381bb8a02e"
+        }
+      }
     ]
   },
   "pairing": {
@@ -401,6 +455,48 @@
         },
         "output": {
           "success": true
+        }
+      }
+    ],
+    "invalid": [
+      {
+        "description": "Invalid pairing test 1",
+        "input": {
+          "x1_g1": "0x2eca0c7238bf16e83e7a1e6c5d49540685ff51380f309842a98561558019fc02",
+          "y1_g1": "0x03d3260361bb8451de5ff5ecd17f010ff22f5c31cdf184e9020b06fa5997db84",
+          "x1_re_g2": "0x209dd15ebff5d46c4bd888e51a93cf99a7329636c63514396b4a452003a35bf7",
+          "x1_im_g2": "0x04bf11ca01483bfa8b34b43561848d28905960114c8ac04049af4b6315a41678",
+          "y1_re_g2": "0x2bb8324af6cfc93537a2ad1a445cfd0ca2a71acd7ac41fadbf933c2a51be344d",
+          "y1_im_g2": "0x120a2a4cf30c1bf9845f20c6fe39e07ea2cce61f0c9bb048165fe5e4de877550",
+          "x2_g1": "0x111e129f1cf1097710d41c4ac70fcdfa5ba2023c6ff1cbeac322de49d1b6df7c",
+          "y2_g1": "0x2032c61a830e3c17286de9462bf242fca2883585b93870a73853face6a6bf411",
+          "x2_re_g2": "0x198e9393920d483a7260bfb731fb5d25f1aa493335a9e71297e485b7aef312c2",
+          "x2_im_g2": "0x1800deef121f1e76426a00665e5c4479674322d4f75edadd46debd5cd992f6ed",
+          "y2_re_g2": "0x090689d0585ff075ec9e99ad690c3395bc4b313370b38ef355acdadcd122975b",
+          "y2_im_g2": "0x12c85ea5db8c6deb4aab71808dcb408fe3d1e7690c43d37b4ce6cc0166fa7daa"
+        },
+        "output": {
+          "success": false
+        }
+      },
+      {
+        "description": "Invalid pairing test 2",
+        "input": {
+          "x1_g1": "0x1c76476f4def4bb94541d57ebba1193381ffa7aa76ada664dd31c16024c43f59",
+          "y1_g1": "0x3034dd2920f673e204fee2811c678745fc819b55d3e9d294e45c9b03a76aef41",
+          "x1_re_g2": "0x1213d2149b006137fcfb23036606f848d638d576a120ca981b5b1a5f9300b3ee",
+          "x1_im_g2": "0x2276cf730cf493cd95d64677bbb75fc42db72513a4c1e387b476d056f80aa75f",
+          "y1_re_g2": "0x21ee6226d31426322afcda621464d0611d226783262e21bb3bc86b537e986237",
+          "y1_im_g2": "0x096df1f82dff337dd5972e32a8ad43e28a78a96a823ef1cd4debe12b6552ea5f",
+          "x2_g1": "0x06967a1237ebfeca9aaae0d6d0bab8e28c198c5a339ef8a2407e31cdac516db9",
+          "y2_g1": "0x22160fa257a5fd5b280642ff47b65eca77e626cb685c84fa6d3b6882a283ddd1",
+          "x2_re_g2": "0x198e9393920d483a7260bfb731fb5d25f1aa493335a9e71297e485b7aef312c2",
+          "x2_im_g2": "0x1800deef121f1e76426a00665e5c4479674322d4f75edadd46debd5cd992f6ed",
+          "y2_re_g2": "0x090689d0585ff075ec9e99ad690c3395bc4b313370b38ef355acdadcd122975b",
+          "y2_im_g2": "0x12c85ea5db8c6deb4aab71808dcb408fe3d1e7690c43d37b4ce6cc0166fa7daa"
+        },
+        "output": {
+          "success": false
         }
       }
     ]
@@ -544,6 +640,36 @@
           "y": "0x049c797f9ce0d17083deb32b5e36f2ea2a212ee036598dd7624c168993d1355f"
         },
         "output": true
+      }
+    ],
+    "invalid": [
+      {
+        "input": {
+          "x": "0x2243525c5efd4b9c3d3c45ac0ca3fe4dd85e830a4ce6b65fa1eeaee202839703",
+          "y": "0x301d1d33be6da8e509df21cc35964723180eed7532537db9ae5e7d48f195c916"
+        },
+        "output": false
+      },
+      {
+        "input": {
+          "x": "0x030644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd3",
+          "y": "0x15ed738c0e0a7c92e7845f96b2ae9c0a68a6a449e3538fc7ff3ebf7a5a18a2c5"
+        },
+        "output": false
+      },
+      {
+        "input": {
+          "x": "0x2bd3e6d0f3b142924f5ca7b49ce5b9d54c4703d7ae5648e61d02268b1a0a9fb7",
+          "y": "0x21611ce0a6af85915e2f1d70300909ce2e49dfad4a4619c8390cae66cefdb205"
+        },
+        "output": false
+      },
+      {
+        "input": {
+          "x": "0x15bf2bb17880144b5d1cd2b1f46eff9d617bffd1ca57c37fb5a49bd84e53cf66",
+          "y": "0x049c797f9ce0d17083deb32b5e36f2ea2a212ee036598dd7624c168993d13500"
+        },
+        "output": false
       }
     ]
   },
