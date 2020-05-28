@@ -1,6 +1,6 @@
 # bls-solidity [![TravisCI](https://travis-ci.com/witnet/bls-solidity.svg?branch=master)](https://travis-ci.com/witnet/bls-solidity)
 
-`bls-solidity` is an open source fast and effective implementation of the 256- bit Barreto-Naehrig (BN256) curve operations written in Solidity. More precisely, this library implements all the necessary curve arithmetic to perform BLS signatures. Currently only the Elliptic Curve (EC) `bn256` is supported, as this is the only curve for which certain operations are subsidized by the EVM in the form of precompiled functions. However, adding support to new curves should be straight forward.
+`bls-solidity` is an open source fast and effective implementation of the 256-bit Barreto-Naehrig (BN256) curve operations written in Solidity. More precisely, this library implements all the necessary curve arithmetic to perform BLS signatures. Currently only the Elliptic Curve (EC) `bn256` is supported, as this is the only curve for which certain operations are subsidized by the EVM in the form of precompiled functions. However, adding support to new curves should be straight forward.
 
 _DISCLAIMER: This is experimental software. **Use it at your own risk**!_
 
@@ -103,9 +103,9 @@ Gas consumption and USD price estimation with a gas price of 20 Gwei, derived fr
 ·················|···························|·············|·············|·············|··············|··············
 |  Contract      ·  Method                   ·  Min        ·  Max        ·  Avg        ·  # calls     ·  usd (avg)  │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G2Helper · _bn128_g2_add             ·        -    ·        -    ·  56879      ·     8         ·  0.2       │ 
+|  BN256G2Helper · _bn128_g2_add             ·        -    ·        -    ·  54401      ·     8         ·  0.2       │ 
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G2Helper · _bn128_g2_multiply        ·  2947053    ·  3142700    ·  3060006    ·    15        ·  10.31      │
+|  BN256G2Helper · _bn128_g2_multiply        ·  2944704    ·  3140352    ·  3057658    ·    15        ·  10.31      │
 ·················|···························|·············|·············|·············|··············|··············
 |  Deployments                               ·                                         ·  % of limit  ·             │
 ·············································|·············|·············|·············|··············|··············
@@ -119,21 +119,21 @@ Gas consumption and USD price estimation with a gas price of 20 Gwei, derived fr
 ·················|···························|·············|·············|·············|··············|··············
 |  Contract      ·  Method                   ·  Min        ·  Max        ·  Avg        ·  # calls     ·  usd (avg)  │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G1Helper ·  _add                     ·   26055     ·   27591     ·   26835     ·     12       ·   0.1       │
+|  BN256G1Helper ·  _add                     ·   23374     ·   24910     ·   24154     ·     12       ·   0.1       │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G1Helper ·  _bn256CheckPairing       ·  143777     ·  144367     ·  144367     ·     10       ·   0.6       │
+|  BN256G1Helper ·  _bn256CheckPairing       ·  140843     ·  141587     ·  141433     ·     10       ·   0.6       │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G1Helper ·  _bn256CheckPairingBatch  ·  182830     ·  182866     ·  182854     ·      5       ·   0.8       │
+|  BN256G1Helper ·  _bn256CheckPairingBatch  ·  179150     ·  179186     ·  179170     ·      5       ·   0.8       │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G1Helper ·  _isOnCurve               ·   24119     ·   25104     ·   24885     ·      9       ·   0.1       │
+|  BN256G1Helper ·  _isOnCurve               ·   21981     ·   22966     ·   22747     ·      9       ·   0.1       │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G1Helper ·  _isOnCurveSubsidized     ·   25053     ·   25821     ·   25667     ·     10       ·   0.1       │
+|  BN256G1Helper ·  _isOnCurveSubsidized     ·   22844     ·   23612     ·   23458     ·     10       ·   0.1       │
 ·················|···························|·············|·············|·············|··············|··············
-|  BN256G1Helper ·  _multiply                ·   32471     ·   32855     ·   32644     ·     36       ·   0.1       │
+|  BN256G1Helper ·  _multiply                ·   29902     ·   30286     ·   30075     ·     36       ·   0.1       │
 ·················|···························|·············|·············|·············|··············|··············
 |  Deployments                               ·                                         ·  % of limit  ·             │
 ·············································|·············|·············|·············|··············|··············
-|  BN256G1Helper                             ·       -     ·       -     ·  622742     ·      9.3 %   ·   2.7       │
+|  BN256G1Helper                             ·       -     ·       -     ·  710293     ·     10.6 %   ·   2.9       │
 ·--------------------------------------------|-------------|-------------|-------------|--------------|-------------·
 ```
 

@@ -12,12 +12,12 @@ import "../../contracts/BN256G1.sol";
 
 contract BN256G1Helper {
 
-  function _add(uint256[4] memory input) public returns (uint256[2] memory){
-    return BN256G1.add(input);
+  function _add(uint256[4] memory input) public returns (uint256[2] memory result){
+    (result[0], result[1]) = BN256G1.add(input);
   }
 
   function _multiply(uint256[3] memory input) public returns (uint256[2] memory result){
-    return BN256G1.multiply(input);
+    (result[0], result[1]) = BN256G1.multiply(input);
   }
 
   function _bn256CheckPairing(uint256[12] memory input) public returns (bool) {
@@ -28,19 +28,15 @@ contract BN256G1Helper {
     return BN256G1.bn256CheckPairingBatch(input);
   }
 
-  function _hashToTryAndIncrement(bytes memory input) public returns (uint256[2] memory result) {
+  function _hashToTryAndIncrement(bytes memory input) public pure returns (uint256[2] memory result) {
     (result[0], result[1]) = BN256G1.hashToTryAndIncrement(input);
   }
 
-  function _isOnCurveSubsidized(uint256[2] memory input) public returns (bool) {
-    return BN256G1.isOnCurveSubsidized(input);
-  }
-
-  function _isOnCurve(uint256[2] memory input) public returns (bool) {
+  function _isOnCurve(uint256[2] memory input) public pure returns (bool) {
     return BN256G1.isOnCurve(input);
   }
 
-  function _fromCompressed(bytes memory point) public returns (uint256[2] memory) {
-    return BN256G1.fromCompressed(point);
+  function _fromCompressed(bytes memory point) public pure returns (uint256[2] memory result) {
+    (result[0], result[1]) = BN256G1.fromCompressed(point);
   }
 }

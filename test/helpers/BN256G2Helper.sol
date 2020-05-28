@@ -12,13 +12,13 @@ import "../../contracts/BN256G2.sol";
 
 contract BN256G2Helper {
 
-  function _ecTwistMul(uint256[5] memory input) public view returns (uint256[4] memory) {
-    return BN256G2.ecTwistMul(
+  function _ecTwistMul(uint256[5] memory input) public view returns (uint256[4] memory result) {
+    (result[0], result[1], result[2], result[3]) = BN256G2.ecTwistMul(
       input[0], input[1], input[2], input[3], input[4]);
   }
 
   function _ecTwistAdd(uint256[8] memory input) public view returns (uint256[4] memory result) {
-    return BN256G2.ecTwistAdd(
+    (result[0], result[1], result[2], result[3]) = BN256G2.ecTwistAdd(
       input[0],
       input[1],
       input[2],

@@ -145,16 +145,6 @@ contract("EcGasHelper - Gas consumption analysis", accounts => {
       })
     }
 
-    // isOnCurveSub
-    for (const [index, test] of curveData.is_on_curve.valid.entries()) {
-      it(`should check wether is on curve (${index + 1})`, async () => {
-        const valid = await bn256g1helper._isOnCurveSubsidized.call([
-          web3.utils.toBN(test.input.x),
-          web3.utils.toBN(test.input.y)])
-        assert.equal(valid, test.output)
-      })
-    }
-
     // isOnCurve
     for (const [index, test] of curveData.is_on_curve.valid.entries()) {
       it(`should check wether is on curve (${index + 1})`, async () => {
