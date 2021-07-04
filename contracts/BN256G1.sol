@@ -91,7 +91,7 @@ library BN256G1 {
       PP);
   }
 
-  /// @dev Checks if 1 = e(P, Q)*e (R,S).
+  /// @dev Checks if 1 = e(P, Q)*e(R, S).
   /// @param input: 12 values of 256 bits each:
   ///  *) x-coordinate of point P
   ///  *) y-coordinate of point P
@@ -105,7 +105,7 @@ library BN256G1 {
   ///  *) x real coordinate of point S
   ///  *) y imaginary coordinate of point S
   ///  *) y real coordinate of point S
-  /// @return true if 1 = e(P, Q)*e (R,S).
+  /// @return true if 1 = e(P, Q)*e(R, S).
   function bn256CheckPairing(uint256[12] memory input) internal returns (bool) {
     uint256[1] memory result;
     bool success;
