@@ -91,21 +91,21 @@ library BN256G1 {
       PP);
   }
 
-  /// @dev Checks if e(P, Q) = e (R,S).
+  /// @dev Checks if 1 = e(P, Q)*e(R, S).
   /// @param input: 12 values of 256 bits each:
   ///  *) x-coordinate of point P
   ///  *) y-coordinate of point P
-  ///  *) x real coordinate of point Q
   ///  *) x imaginary coordinate of point Q
-  ///  *) y real coordinate of point Q
+  ///  *) x real coordinate of point Q
   ///  *) y imaginary coordinate of point Q
+  ///  *) y real coordinate of point Q
   ///  *) x-coordinate of point R
   ///  *) y-coordinate of point R
-  ///  *) x real coordinate of point S
   ///  *) x imaginary coordinate of point S
-  ///  *) y real coordinate of point S
+  ///  *) x real coordinate of point S
   ///  *) y imaginary coordinate of point S
-  /// @return true if e(P, Q) = e (R,S).
+  ///  *) y real coordinate of point S
+  /// @return true if 1 = e(P, Q)*e(R, S).
   function bn256CheckPairing(uint256[12] memory input) internal returns (bool) {
     uint256[1] memory result;
     bool success;
@@ -121,22 +121,22 @@ library BN256G1 {
     return result[0] == 1;
   }
 
-  /// @dev Checks if e(P, Q) = e (R,S)*e(T,U)...
+  /// @dev Checks if 1 = e(P, Q)*e (R,S)*e(T,U)...
   /// @param input: A modulo 6 length array of values of 256 bits each:
   ///  *) x-coordinate of point P
   ///  *) y-coordinate of point P
-  ///  *) x real coordinate of point Q
   ///  *) x imaginary coordinate of point Q
-  ///  *) y real coordinate of point Q
+  ///  *) x real coordinate of point Q
   ///  *) y imaginary coordinate of point Q
+  ///  *) y real coordinate of point Q
   ///  *) x-coordinate of point R
   ///  *) y-coordinate of point R
-  ///  *) x real coordinate of point S
   ///  *) x imaginary coordinate of point S
-  ///  *) y real coordinate of point S
+  ///  *) x real coordinate of point S
   ///  *) y imaginary coordinate of point S
+  ///  *) y real coordinate of point S
   ///  *) and so forth with additional pairing checks
-  /// @return true if e(input[0,1], input[2,3,4,5]) = e(input[6,7], input[8,9,10,11])*e(input[12,13], input[14,15,16,17])...
+  /// @return true if 1 = e(input[0,1], input[2,3,4,5])*e(input[6,7], input[8,9,10,11])*e(input[12,13], input[14,15,16,17])...
   function bn256CheckPairingBatch(uint256[] memory input) internal returns (bool) {
     uint256[1] memory result;
     bool success;
