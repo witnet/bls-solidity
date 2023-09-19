@@ -370,7 +370,8 @@ library BN256G2 {
       mstore(add(freemem,0x60), a)
       mstore(add(freemem,0x80), sub(n, 2))
       mstore(add(freemem,0xA0), n)
-      success := staticcall(sub(gas(), 2000), 5, freemem, 0xC0, freemem, 0x20)
+      pop(staticcall(sub(gas(), 2000), 5, freemem, 0xC0, freemem, 0x20))
+      success := eq(returndatasize(), 0x20)
       result := mload(freemem)
     }
     require(success, "error calculating the modular inverse");
