@@ -28,7 +28,7 @@
   "dependencies": {
     "elliptic-curve-solidity": "0.2.2"
   },
-  "homepage": "https://github.com/witnet/bls-solidityy#readme",
+  "homepage": "https://github.com/witnet/bls-solidity#readme",
   "scripts": {
     "test": "truffle test",
     "test:local": "truffle test --network local",
